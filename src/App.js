@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import CreateNote from './components/CreateNote';
+import Note from './components/Note';
+import Footer from './components/Footer';
+import { createContext, useState } from 'react';
 
-function App() {
+export const NoteContext = createContext();
+
+const getNote = () => {
+  if (localStorage.getItem('note')) {
+    return JSON.parse(localStorage.getItem('note'));
+  } else {
+    return [];
+  }
+}
+
+const App = () => {
+  const [addNote, setAddNote] = useState(getNote());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NoteContext.Provider value={{ addNote, setAddNote }}>
+      <main>
+        <Header />
+        <CreateNote />
+        <div className='notes'>
+          {
+            addNote.map((ele) => <Note key={ele.id} note={ele} />)
+          }
+        </div>
+        <Footer />
+      </main>
+    </NoteContext.Provider>
   );
 }
 

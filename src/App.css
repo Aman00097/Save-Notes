@@ -1,38 +1,263 @@
-.App {
-  text-align: center;
+:root {
+  --yellow: #ffc400;
+  --white: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body::-webkit-scrollbar {
+  display: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+main {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  background-color: var(--yellow);
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+
+header .logo {
+  background-color: var(--white);
+  color: var(--yellow);
+  padding: 1px 8px;
+  font-size: 18px;
+  font-weight: 600;
+  z-index: 1;
+  margin-left: 50px;
+  box-shadow: 3px 3px var(--yellow), 3px 3px 0 3px var(--white);
+  border-radius: 8px;
+}
+
+header h1 {
+  font-size: 30px;
+  margin: 15px;
+}
+
+/* Create Note */
+form {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+form .add_note {
+  box-shadow: 2px 2px 8px grey;
+  border-radius: 5px;
+  padding: 15px;
+  width: 300px;
+  margin-left: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+form .add_note input {
+  border: none;
+  outline: none;
+  font-size: 18px;
+  width: 100%;
+}
+
+input::placeholder {
+  color: black;
+}
+
+form .add_note textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  line-height: 1.5;
+  width: 100%;
+}
+
+textarea::-webkit-scrollbar {
+  scroll-behavior: unset;
+}
+
+form button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-size: 30px;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  transform: translate(-150%, 220%);
+  box-shadow: 2px 2px 8px grey;
+  color: var(--yellow);
+}
+
+form button:hover {
+  background-color: var(--yellow);
+  color: var(--white);
+}
+
+main div.notes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+}
+
+.note {
+  width: calc((100%/4) - 64px);
+  height: 150px;
+  min-width: 180px;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 8px grey;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.note:hover {
+  box-shadow: 0px 0px 10px var(--yellow);
+}
+
+.note h1 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.note p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.note button {
+  border: none;
+  background-color: var(--white);
+  color: var(--yellow);
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 180px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.note button ion-icon:hover {
+  border-radius: 50%;
+  background-color: var(--yellow);
+  color: var(--white);
+}
+
+.popup_bg {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000bc;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 5;
+}
+
+.popup_bg.visible {
+  display: block;
+}
+
+.popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 250px;
+  box-shadow: 2px 2px 8px grey;
+  padding: 0px 20px;
+  border-radius: 10px;
+  background-color: var(--white);
+  overflow: auto;
+}
+
+.popup::-webkit-scrollbar {
+  display: none;
+}
+
+.popup_bg button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 2px 2px 8px grey;
+  color: var(--yellow);
+  margin: 125px 160px;
+}
+
+.popup_bg button:hover {
+  background-color: var(--yellow);
+  color: var(--white);
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  background-color: var(--yellow);
+  color: var(--white);
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  font-weight: 500;
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  margin-top: auto;
+}
+
+@media screen and (max-width: 1150px) {
+  .note {
+    width: calc((100%/3) - 60px);
+    min-width: 180px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (max-width: 800px) {
+  main div.notes {
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .note {
+    width: calc((100%/2) - 55px);
+    height: 150px;
+    min-width: 180px;
+    padding: 10px 20px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  form {
+    margin: 30px 0;
+  }
+
+  form .add_note {
+    width: 100%;
+  }
+
+  main div.notes {
+    justify-content: center;
+  }
+
+  .note {
+    width: 100%;
+    height: 150px;
+    max-width: 250px;
   }
 }
